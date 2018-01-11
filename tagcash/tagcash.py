@@ -2,15 +2,17 @@
 Tag Cash.
 
 Usage:
-  tagcash [-t <TAGS>] <FILE>...
+  tagcash [-t <TAGS>] [<FILE>... | -]
 
 Arguments:
   FILE  One or more transaction files
+  -     Use stdin (default)
 
 Options
   -t TAGS --tags=TAGS  Comma-separated tags to filter, no spaces.
-                       Defaults to all.
+                       Defaults to use all tags.
 """
+import fileinput
 import re
 from collections import defaultdict
 from sys import stderr
@@ -21,9 +23,9 @@ from docopt import docopt
 
 LINE_RE = re.compile(r"""^
                      (?P<date>\d{4}-\d{2}-\d{2}) \s+
-                     (?P<amount>[\d\.,]+)        \s+
-                     (?P<description>.+)         \s+?
-                     (?P<tags>[\w,-]+)
+                     (?P<amount>-?[\d\.,]+)      \s+
+                     (?P<description>.+)         \s+
+                     (?P<tags>[-\w,]+)
                      $""", re.X)
 
 
@@ -69,25 +71,19 @@ def create_entries(wanted_tags, parsed_line):
             yield Entry(tag, **parsed_line)
 
 
-def parse_line(wanted_tags, line):
-    match = LINE_RE.match(line)
-    if match:
-        parsed_line = match.groupdict()
-        yield from create_entries(wanted_tags, parsed_line)
-    else:
-        print(f'Couldn\'t parse line "{line}".', file=stderr)
+def parse_lines(wanted_tags):
+    for line in fileinput.input():
+        match = LINE_RE.match(line)
+        if match:
+            parsed_line = match.groupdict()
+            yield from create_entries(wanted_tags, parsed_line)
+        else:
+            print(f'Couldn\'t parse line "{line}".', file=stderr)
 
 
-def parse_files(wanted_tags, files):
-    for file_ in files:
-        with open(file_) as lines:
-            for line in lines:
-                yield from parse_line(wanted_tags, line)
-
-
-def parse_entries(tags, files):
+def parse_entries(tags):
     entries_by_tag = defaultdict(list)
-    for entry in parse_files(tags, files):
+    for entry in parse_lines(tags):
         entries_by_tag[entry.tag].append(entry)
     return entries_by_tag
 
@@ -119,7 +115,7 @@ def main():
     else:
         tags = set(tag.lower() for tag in args['--tags'].split(','))
 
-    entries = parse_entries(tags, args['<FILE>'])
+    entries = parse_entries(tags)
     update_balance(entries.values())
     for tag in sorted(entries):
         print_tag_table(entries[tag])
