@@ -78,7 +78,7 @@ def parse_lines(wanted_tags):
             parsed_line = match.groupdict()
             yield from create_entries(wanted_tags, parsed_line)
         else:
-            print(f'Couldn\'t parse line "{line}".', file=stderr)
+            print(f'Couldn\'t parse line "{line.rstrip()}"', file=stderr)
 
 
 def parse_entries(tags):
