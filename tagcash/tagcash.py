@@ -15,6 +15,7 @@ import re
 from collections import defaultdict
 from sys import stderr
 
+from terminaltables import SingleTable
 from docopt import docopt
 
 
@@ -100,32 +101,15 @@ def update_balance(entry_lists):
             balance = entry.balance
 
 
-def get_max_lengths(entries):
-    max_amount_len = max(len(f'{entry.amount:,.2f}') for entry in entries)
-    max_balance_len = max(len(f'{entry.balance:,.2f}') for entry in entries)
-
-    return (max(max_amount_len, len('Amount')),
-            max(max_balance_len, len('Balance')),
-            max(len(entry.description) for entry in entries))
-
-
-def print_header(amount_len, balance_len, desc_len):
-    header = f'{"Date":<10}  {"Amount":>{amount_len}}  ' \
-        f'{"Balance":>{balance_len}}  {"Description":<{desc_len}}'
-    print(header)
-    print('-' * len(header))
-
-
-def print_entries(entries):
-    for tag in sorted(entries):
-        print('\n' + tag)
-        print('=' * len(tag))
-        amount_len, balance_len, desc_len = get_max_lengths(entries[tag])
-        print_header(amount_len, balance_len, desc_len)
-        for entry in entries[tag]:
-            print(f'{entry.date}  {entry.amount:>{amount_len},.2f}  '
-                  f'{entry.balance:>{balance_len},.2f}  '
-                  f'{entry.description:<{desc_len}}')
+def print_tag_table(entries):
+    header = ('Date', 'Amount', 'Balance', 'Description')
+    rows = [(entry.date, f'{entry.amount:,.2f}', f'{entry.balance:,.2f}',
+            entry.description) for entry in entries]
+    table_data = [header] + rows
+    table = SingleTable(table_data, title=entries[0].tag)
+    table.justify_columns[1] = 'right'
+    table.justify_columns[2] = 'right'
+    print(table.table)
 
 
 def main():
@@ -137,7 +121,8 @@ def main():
 
     entries = parse_entries(tags, args['<FILE>'])
     update_balance(entries.values())
-    print_entries(entries)
+    for tag in sorted(entries):
+        print_tag_table(entries[tag])
 
 
 if __name__ == '__main__':
