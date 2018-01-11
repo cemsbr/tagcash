@@ -20,10 +20,10 @@ from docopt import docopt
 
 
 LINE_RE = re.compile(r"""^
-                     (?P<date>\d{4}-\d{2}-\d{2}) \s{2,}
-                     (?P<amount>[\d\.,]+)        \s{2,}
-                     (?P<description>.+)         \s{2,}
-                     (?P<tags>.+)
+                     (?P<date>\d{4}-\d{2}-\d{2}) \s+
+                     (?P<amount>[\d\.,]+)        \s+
+                     (?P<description>.+)         \s+?
+                     (?P<tags>[\w,-]+)
                      $""", re.X)
 
 
