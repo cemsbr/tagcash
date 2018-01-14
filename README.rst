@@ -1,6 +1,8 @@
 TagCash - Finances with tags in CLI
 ===================================
 
+|semaphore| |coveralls|
+
 Missing a practical and easy-to-learn solution to keep track of your finances? Use tagcash to do it with simple text files!
 
 Quick Start
@@ -54,3 +56,9 @@ To know how much money you have, including all accounts, add the ``--all`` optio
  └────────────┴────────┴─────────┴───────────────────┘
 
 As expected, because you withdrew money to your own wallet, the last table shows that you have $100 in total. To keep this overall balance consistent, adopt this simple rule: use negative numbers (or tags) whenever you spend money, and positive when you earn it.
+
+
+.. |semaphore| image:: https://semaphoreci.com/api/v1/cemsbr/tagcash/branches/master/shields_badge.svg
+              :target: https://semaphoreci.com/cemsbr/tagcash
+.. |coveralls| image:: https://coveralls.io/repos/github/cemsbr/tagcash/badge.svg?branch=master
+              :target: https://coveralls.io/github/cemsbr/tagcash?branch=master
