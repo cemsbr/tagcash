@@ -39,6 +39,7 @@ setup(
             #   https://bitbucket.org/ned/coveragepy/issues/578/
             # - Code climate requires < 4.4
             'coverage<4.4',
+            'eradicate',
             'pip-tools',
             'rstcheck',
             'tox',

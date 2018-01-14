@@ -1,8 +1,8 @@
 """Test entries and parsing."""
 import unittest
 
-from tagcash.interface import parse_lines
 from tagcash.entry import update_balance
+from tagcash.interface import parse_lines
 
 
 class TestParser(unittest.TestCase):
