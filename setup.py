@@ -11,7 +11,7 @@ with open(HERE / 'README.rst', encoding='utf-8') as f:
 
 setup(
     name='tagcash',
-    version='1.0.0b0',
+    version='1.0.0b1',
     description='Manage your finances with tags in CLI',
     long_description=LONG_DESC,
     url='https://github.com/cemsbr/tagcash',

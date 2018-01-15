@@ -45,7 +45,7 @@ def print_tag_table(title, entries):
 
 def main():
     """Entry point."""
-    args = docopt(__doc__, version='1.0.0a0')
+    args = docopt(__doc__, version='1.0.0b1')
     if args['--tags'] is None:
         tags = None
     else:
