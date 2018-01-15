@@ -5,6 +5,15 @@ TagCash - Finances with tags in CLI
 
 Missing a practical and easy-to-learn solution to keep track of your finances? Use tagcash to do it with simple text files!
 
+TagCash is a little hack that I'm currently using after trying several solutions like GnuCash and Financisto. These are some of the features that I was missing and that can be found in TagCash:
+
+- As simple as editing text files;
+- Text files are easy to sync between devices and people;
+- Simple CLI;
+- Quickly copy and paste statements from CLI to e-mail;
+- Simple and short code.
+
+
 Quick Start
 -----------
 
@@ -32,18 +41,22 @@ As there's no starting balance for ``wallet``, it will be 0. In the second line,
 Tips
 ----
 
-- You can use as many files as you wish;
-- There's no need to keep the lines sorted by date. For example, you can keep together all the monthly installments of a payment.
+- The parser is flexible. Just don't use space in tags and separate them by comma;
+- Align as you wish. Use 1 or more spaces between fields (date, amount, ...);
+- You can use as many files as you want;
+- There's no need to keep the lines sorted by date. Thus, you can keep together all the monthly installments of a payment;
+- To choose tags, use for example ``--tags wallet`` (``-t`` for short).
+
 
 How to Install
 --------------
-Tested with Python 3.6: ``pip3.6 install tagcash``.
+With Python 3.6: ``pip3 install tagcash``.
 
 
 Advanced Usage
 --------------
 
-To know how much money you have, including all accounts, add the ``--all`` option::
+To know how much money you have, including all specified tags, add the ``--all`` option::
 
  $ tagcash --all finances.txt
  (...)
