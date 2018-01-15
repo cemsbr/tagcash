@@ -44,7 +44,7 @@ class Entry:  # pylint: disable=too-few-public-methods
             digits = re.sub(r'[\.,]', '', amount)
             return int(digits) / 100
 
-        raise ValueError(f'Couldn\'t parse amount "{amount}"')
+        raise ValueError('Couldn\'t parse amount "{}"'.format(amount))
 
 
 def update_balance(entries):
@@ -64,7 +64,8 @@ def parse_lines(lines, wanted_tags):
             parsed_line = match.groupdict()
             yield from _create_entries(wanted_tags, parsed_line)
         else:
-            print(f'Couldn\'t parse line "{line.rstrip()}"', file=stderr)
+            print('Couldn\'t parse line "{}"'.format(line.rstrip()),
+                  file=stderr)
 
 
 def _create_entries(wanted_tags, parsed_line):

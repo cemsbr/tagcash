@@ -50,7 +50,7 @@ Tips
 
 How to Install
 --------------
-With Python 3.6: ``pip3 install tagcash``.
+Tested with Python >= 3.5: ``pip3 install tagcash``.
 
 
 Advanced Usage

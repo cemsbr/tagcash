@@ -77,7 +77,7 @@ class TestAmountParsing(unittest.TestCase):
     @staticmethod
     def _parse_amount(amount_str):
         entries = TestParser.parse_lines(
-            f'2018-01-14  {amount_str}  Description  mytag'
+            '2018-01-14  %s  Description  mytag' % amount_str
         )
         return entries[0].amount
 

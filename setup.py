@@ -6,12 +6,13 @@ from setuptools import setup
 HERE = Path().parent.resolve()  # pylint: disable=no-member
 
 # Get the long description from the README file
-with open(HERE / 'README.rst', encoding='utf-8') as f:
+README = HERE / 'README.rst'
+with open(str(README), encoding='utf-8') as f:
     LONG_DESC = f.read()
 
 setup(
     name='tagcash',
-    version='1.0.0b1',
+    version='1.0.0b2',
     description='Finances with tags in CLI',
     long_description=LONG_DESC,
     url='https://github.com/cemsbr/tagcash',
@@ -24,6 +25,7 @@ setup(
         'Intended Audience :: Financial and Insurance Industry',
         'Topic :: Office/Business :: Financial :: Accounting',
         'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
     keywords='accounting finance finances cli terminal',
@@ -43,7 +45,8 @@ setup(
             'pip-tools',
             'rstcheck',
             'tox',
-            'yala',
+            # Python 3.5 support since 1.4.0
+            'yala>=1.4.0',
         ]
     },
     entry_points={

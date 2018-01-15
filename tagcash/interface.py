@@ -34,7 +34,9 @@ def parse_entries(tags, files):
 def print_tag_table(title, entries):
     """Show entries as a table."""
     header = ('Date', 'Amount', 'Balance', 'Description')
-    rows = [(entry.date, f'{entry.amount:,.2f}', f'{entry.balance:,.2f}',
+    rows = [(entry.date,
+             '{:,.2f}'.format(entry.amount),
+             '{:,.2f}'.format(entry.balance),
              entry.description) for entry in entries]
     table_data = [header] + rows
     table = SingleTable(table_data, title=title)
@@ -45,7 +47,7 @@ def print_tag_table(title, entries):
 
 def main():
     """Entry point."""
-    args = docopt(__doc__, version='1.0.0b1')
+    args = docopt(__doc__, version='1.0.0b2')
     if args['--tags'] is None:
         tags = None
     else:
